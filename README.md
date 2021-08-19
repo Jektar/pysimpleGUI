@@ -9,6 +9,7 @@ The main object in pysimpleGUI is the layout object. This starts as a black surf
 
 Layout contains:
 Layout.draw() method, displays the layout, has to be called every frame
+
 Layout.collide(point) method (point is an iterable of length 2), checks collisions
 Layout.addBar(bar) method (bar is a slider or bar object), adds a bar or slider object to the layout
 Layout.addButton(button) method, add a button object to the layout
