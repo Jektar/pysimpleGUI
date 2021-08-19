@@ -5,41 +5,42 @@ To use this module, you will need to have pygame installed in your interpreter. 
 Then, you can import and use it like a normal library.
 
 Example code:
-from pysimpleGUI import *
-from pygame.locals import *
 
-import sys
+    from pysimpleGUI import *
+    from pygame.locals import *
 
-def myFunc(_):
-    print('This is a dummy function!')
+    import sys
 
-WS = pg.display.set_mode((640, 480))
+    def myFunc(_):
+        print('This is a dummy function!')
 
-layouts = [Layout()]
+    WS = pg.display.set_mode((640, 480))
 
-rect = GUIRect((200, 100), (150, 75), RED)
-layouts[0].addButton(Button(rect, myFunc, textBox=TextBox((200, 100), BLACK, 'This a dummy button', font=tinyFont)))
+    layouts = [Layout()]
 
-currentLayout = 0 #Uses a variable to controll what layout is currently used
+    rect = GUIRect((200, 100), (150, 75), RED)
+    layouts[0].addButton(Button(rect, myFunc, textBox=TextBox((200, 100), BLACK, 'This a dummy button', font=tinyFont)))
 
-[layout.setSurface(WS) for layout in layouts] #Updates the surface on all layouts
+    currentLayout = 0 #Uses a variable to controll what layout is currently used
+
+    [layout.setSurface(WS) for layout in layouts] #Updates the surface on all layouts
 
 
-while True:
-#Main loop
-    for event in pg.event.get():
-        if event.type == QUIT:
-            pg.quit()
-            sys.exit()
+    while True:
+    #Main loop
+        for event in pg.event.get():
+            if event.type == QUIT:
+                pg.quit()
+                sys.exit()
 
-        if event.type == MOUSEBUTTONDOWN:
-            x, y = pg.mouse.get_pos()
-            layouts[currentLayout].collide((x, y)) #Cailling the update function uppon user pressing the mouse
+            if event.type == MOUSEBUTTONDOWN:
+                x, y = pg.mouse.get_pos()
+                layouts[currentLayout].collide((x, y)) #Cailling the update function uppon user pressing the mouse
 
-    WS.fill(WHITE)
-    layouts[currentLayout].draw() #Draws every object every frame
-    pg.display.update()
-    
+        WS.fill(WHITE)
+        layouts[currentLayout].draw() #Draws every object every frame
+        pg.display.update()
+
 
 What objects exist in this library?
 
