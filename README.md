@@ -4,6 +4,43 @@ A library to make setting up GUI's in pygame more manageable and simple. This is
 To use this module, you will need to have pygame installed in your interpreter. Since this library is not (yet) in any pip files, you will need to download the main code and place it in the folder of the program you want to use. 
 Then, you can import and use it like a normal library.
 
+Example code:
+from pysimpleGUI import *
+from pygame.locals import *
+
+import sys
+
+def myFunc(_):
+    print('This is a dummy function!')
+
+WS = pg.display.set_mode((640, 480))
+
+layouts = [Layout()]
+
+rect = GUIRect((200, 100), (150, 75), RED)
+layouts[0].addButton(Button(rect, myFunc, textBox=TextBox((200, 100), BLACK, 'This a dummy button', font=tinyFont)))
+
+currentLayout = 0 #Uses a variable to controll what layout is currently used
+
+[layout.setSurface(WS) for layout in layouts] #Updates the surface on all layouts
+
+
+while True:
+#Main loop
+    for event in pg.event.get():
+        if event.type == QUIT:
+            pg.quit()
+            sys.exit()
+
+        if event.type == MOUSEBUTTONDOWN:
+            x, y = pg.mouse.get_pos()
+            layouts[currentLayout].collide((x, y)) #Cailling the update function uppon user pressing the mouse
+
+    WS.fill(WHITE)
+    layouts[currentLayout].draw() #Draws every object every frame
+    pg.display.update()
+    
+
 What objects exist in this library?
 
 The main object in pysimpleGUI is the layout object. This starts as a black surface, you can add elements to. The surface object contains methods for displaying everything contained in it as well as a collision method for when the user has clicked a spot:
