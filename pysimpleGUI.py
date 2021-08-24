@@ -376,36 +376,3 @@ class Layout():
                 return False
 
         return True
-
-
-from pygame.locals import *
-import sys
-
-def myFunc(_):
-    print('This is a dummy function!')
-
-WS = pg.display.set_mode((640, 480))
-
-layouts = [Layout()]
-
-rect = GUIRect((200, 100), (150, 75), RED)
-layouts[0].addButton(Button(rect, myFunc, textBox=TextBox((200, 100), BLACK, 'This a dummy button', font=tinyFont)))
-
-currentLayout = 0
-
-[layout.setSurface(WS) for layout in layouts]
-
-
-while True:
-    for event in pg.event.get():
-        if event.type == QUIT:
-            pg.quit()
-            sys.exit()
-
-        if event.type == MOUSEBUTTONDOWN:
-            x, y = pg.mouse.get_pos()
-            layouts[currentLayout].collide((x, y))
-
-    WS.fill(WHITE)
-    layouts[currentLayout].draw()
-    pg.display.update()
