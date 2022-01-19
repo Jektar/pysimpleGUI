@@ -293,12 +293,12 @@ class TextBox():
         self.descs += [self.font.render(' '.join(remaining), True, self.color)]
 
 class Layout():
-    def __init__(self, buttons=[], textBoxes=[], shapes=[], selectors=[], bars=[]):
-        self.buttons = buttons
-        self.textBoxes = textBoxes
-        self.shapes = shapes
-        self.selectors = selectors
-        self.bars = bars
+    def __init__(self):
+        self.buttons = []
+        self.textBoxes = []
+        self.shapes = []
+        self.selectors = []
+        self.bars = []
 
     def draw(self):
         if self.checkSurface():
