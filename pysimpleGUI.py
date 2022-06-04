@@ -20,12 +20,15 @@ YELLOW = (255, 255, 0)
 BLUE = (0, 0, 255)
 PURPLE = (128, 0, 128)
 
+def empty(_):
+    pass
+
 def euclidDis(p1, p2):
     #Finner avstanden mellom to punkt i 2d rom ved hjelp av pytagoras
     return ((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)**(1/2)
 
 class Button():
-    def __init__(self, shape, func, textBox = None, params=[]):
+    def __init__(self, shape, func=empty, textBox = None, params=[]):
         self.func, self.params = func, params
         self.textBox = textBox
         self.shape = shape
@@ -60,15 +63,15 @@ class Selector():
     def draw(self):
         if self.isactive:
             #Draw the outline (a bit convoluted)
-            self.buttons[self.selected].shape.centerx -= 2
-            self.buttons[self.selected].shape.centery -= 2
+            self.buttons[self.selected].shape.center[0] -= 2
+            self.buttons[self.selected].shape.center[1] -= 2
             self.buttons[self.selected].shape.update()
             orgColor = self.buttons[self.selected].shape.color
             self.buttons[self.selected].shape.color = self.selectorColor
-            self.buttons[self.selected].shape.color = orgColor
             self.buttons[self.selected].shape.draw()
-            self.buttons[self.selected].shape.centerx += 2
-            self.buttons[self.selected].shape.centery += 2
+            self.buttons[self.selected].shape.color = orgColor
+            self.buttons[self.selected].shape.center[0] += 2
+            self.buttons[self.selected].shape.center[1] += 2
             self.buttons[self.selected].shape.update()
 
             #Draw the buttons
@@ -345,6 +348,7 @@ class Layout():
         for selector in self.selectors:
             for button in selector.buttons:
                 button.shape.surface = surface
+                button.textBox.surface = surface
 
         for bar in self.bars:
             bar.surface = surface
@@ -369,6 +373,8 @@ class Layout():
         for selector in self.selectors:
             for button in selector.buttons:
                 if button.shape.surface == None:
+                    return False
+                if button.textBox.surface == None:
                     return False
 
         for bar in self.bars:
